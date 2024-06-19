@@ -264,7 +264,8 @@ pub async fn revm_simulation<M: Middleware + 'static>(
 pub async fn benchmark_function() {
     dotenv::dotenv().ok();
 
-    let user = H160::from_str("0xE2b5A9c1e325511a227EF527af38c3A7B65AFA1d").unwrap();
+    // let user = H160::from_str("0xE2b5A9c1e325511a227EF527af38c3A7B65AFA1d").unwrap();
+    let user = H160::from_str("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266").unwrap();
 
     let weth = H160::from_str("0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2").unwrap();
     let usdt = H160::from_str("0xdAC17F958D2ee523a2206206994597C13D831ec7").unwrap();
@@ -331,40 +332,40 @@ pub async fn benchmark_function() {
         let avg_took = tooks.clone().into_iter().sum::<i32>() / (tooks.len() as i32);
         info!("[eth_call] Average took: {:?} microseconds", avg_took);
     }
-
-    // revm simulation
-    {
-        let mut tooks = Vec::new();
-
-        for _ in 0..runs {
-            let mut evm = create_evm_instance();
-            evm_env_setup(&mut evm);
-
-            let s = Instant::now();
-            let out = revm_simulation(
-                &mut evm,
-                provider.clone(),
-                block.clone(),
-                user,
-                uniswap_v2_factory,
-                weth_usdt_pair,
-                weth,
-                usdt,
-                weth_balance_slot,
-                usdt_balance_slot,
-                weth_implementation,
-                usdt_implementation,
-            )
-            .await
-            .unwrap();
-            let took = s.elapsed().as_micros();
-            tooks.push(took as i32);
-            info!("[revm] Result: {:?} / Took: {:?} microseconds", out, took);
-        }
-
-        let avg_took = tooks.clone().into_iter().sum::<i32>() / (tooks.len() as i32);
-        info!("[revm] Average took: {:?} microseconds", avg_took);
-    }
+    //
+    // // revm simulation
+    // {
+    //     let mut tooks = Vec::new();
+    //
+    //     for _ in 0..runs {
+    //         let mut evm = create_evm_instance();
+    //         evm_env_setup(&mut evm);
+    //
+    //         let s = Instant::now();
+    //         let out = revm_simulation(
+    //             &mut evm,
+    //             provider.clone(),
+    //             block.clone(),
+    //             user,
+    //             uniswap_v2_factory,
+    //             weth_usdt_pair,
+    //             weth,
+    //             usdt,
+    //             weth_balance_slot,
+    //             usdt_balance_slot,
+    //             weth_implementation,
+    //             usdt_implementation,
+    //         )
+    //         .await
+    //         .unwrap();
+    //         let took = s.elapsed().as_micros();
+    //         tooks.push(took as i32);
+    //         info!("[revm] Result: {:?} / Took: {:?} microseconds", out, took);
+    //     }
+    //
+    //     let avg_took = tooks.clone().into_iter().sum::<i32>() / (tooks.len() as i32);
+    //     info!("[revm] Average took: {:?} microseconds", avg_took);
+    // }
 
     // foundry simulation
     {

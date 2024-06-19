@@ -20,6 +20,7 @@ use revm_is_all_you_need::tokens::get_implementation;
 use revm_is_all_you_need::utils::setup_logger;
 
 #[tokio::main]
+// 分析main函数 1. 读取环境变量 2. 设置日志 3. 创建evm实例 4. evm环境设置 5. 获取用户地址 6. 获取weth地址 7. 获取usdt地址 8. 获取usdc地址 9. 获取dai地址 10. 获取weth余额 11. 创建env实例 12. 连接ws 13. 创建provider实例 14. 获取最新区块 15. 获取uniswap_v2_factory地址 16. 获取weth_usdt_pair地址 17. 获取weth余额槽 18. 获取usdt余额槽 19. 获取weth实现 20. 获取usdt实现 21. revm_v2_simulate_swap 22. foundry_v2_simulate_swap 23. eth_call_get_token_balance 24. eth_call_v2_simulate_swap
 async fn main() -> Result<()> {
     dotenv::dotenv().ok();
     setup_logger()?;
